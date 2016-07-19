@@ -14,9 +14,12 @@ def showFixation(markerSymbol, markerSize, markerColor):
     ax.set_ylim(-1.1, 1.1)
     fig.set_facecolor('0.50')
     plt.axis('off')
-    F = gcf()
-    Size = F.get_size_inches()
-    F.set_size_inches(Size[0] * 2, Size[1] * 2, forward=True)
+
+    ## full screen here
+
+    # F = gcf()
+    # Size = F.get_size_inches()
+    # F.set_size_inches(Size[0] * 2, Size[1] * 2, forward=True)
 
 
 
