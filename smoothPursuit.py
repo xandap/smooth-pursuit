@@ -9,6 +9,45 @@ from keyListen import *
 ## format of eyetribe server output
 #print("eT;dT;aT;Fix;State;Rwx;Rwy;Avx;Avy;LRwx;LRwy;LAvx;LAvy;LPSz;LCx;LCy;RRwx;RRwy;RAvx;RAvy;RPSz;RCx;RCy")
 
+def runSimulation(block, trial):
+        #wait ON break screen until keypress OR 15 seconds
+        t0 = time.time() #where is best to put this?
+        showFixation('o', 1, '0.5')
+        if keyTrue or time.time()-t0 > 15: #check this too for key press
+            # show fixation cross
+            showFixation('+', 25, 'b')
+            # stimulus 1
+            starttime.append(n.time)
+            ## load video here
+            endtime.append(n.time)
+    ## vertical
+    if block == 2:
+        t0 = time.time()
+        showFixation('o', 1, '0.5')
+        if press.event() == 'enter' or time.time() - t0 > 15:
+            showFixation('+', 25, 'b')
+            starttime.append(n.time)
+            ## load video here
+            endtime.append(n.time)
+    ## diagonal
+    if block == 3:
+        t0 = time.time()
+        showFixation('o', 25, '0.5')
+        if press.event() == 'enter' or time.time() - t0 > 15:
+            showFixation('+', 25, 'b')
+            starttime.append(n.time)
+            ## load video here
+            endtime.append(n.time)
+    if block == 4: ## elliptical
+            t0 = time.time()
+            showFixation('o', 25, '0.5')
+            if press.event() == 'enter' or time.time() - t0 > 15:
+                showFixation('+', 25, 'b')
+                starttime.append(n.time)
+                ##
+                endtime.append(n.time)
+
+
 fps = 60
 spf = 1. / fps #Seconds Per Frame
 
@@ -38,109 +77,17 @@ while on == 1:
     timestamp.append(n.time) #append time
     lefteye.append(n.lefteye) #append left eye in rawx, rawy, avgx, avgy
     righteye.append(n.righteye) #append right eye in rawx, rawy, avgx, avgy
-    ## horizontal
-    if block == 1:
-        #wait ON break screen until keypress OR 15 seconds
-        t0 = time.time() #where is best to put this?
-        showFixation('o', 1, '0.5')
-        if keyTrue or time.time()-t0 > 15: #check this too for key press
-            # show fixation cross
-            showFixation('+', 25, 'b')
-            # stimulus 1
-            starttime.append(n.time)
-            for t in xrange(200): #gotta work on timing to make sure accurate/reliable
-                if t == 0:
-                    showFixation('o', 5, 'r')
-                else:
-                    t /= 10.
-                    t_arr = np.linspace(t - 2 * spf, t, num=2)  # Makes a trail
-                    new_x = np.sin(targetFrequency*np.asarray(t_arr))
-                    new_y = np.zeros(len(t_arr))
-                    points.set_data(new_x, new_y)
-                plt.pause(spf)
-            endtime.append(n.time)
-            #advance to break screen
-            if trial > numberoftrials:#if over number of trials
-                block = 2 #move on to next block of stimuli
-                trial = 1 #reset trial
-            else:
-                saveVars(block, trial, timestamp, lefteye, righteye, starttime, endtime)
-                timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
-                trial += 1  # repeat another trial
-    ## vertical
-    if block == 2:
-        t0 = time.time()
-        showFixation('o', 1, '0.5')
-        if press.event() == 'enter' or time.time() - t0 > 15:
-            showFixation('+', 25, 'b')
-            starttime.append(n.time)
-            for t in xrange(150):
-                if t == 0:
-                    showFixation('o', 5, 'r')
-                else:
-                    t /= 10.
-                    t_arr = np.linspace(t - 2 * spf, t, num=2)
-                    new_x = np.zeros(len(t_arr))
-                    new_y = np.sin(targetFrequency*np.asarray(t_arr))
-                    points.set_data(new_x, new_y)
-                plt.pause(spf)
-            endtime.append(n.time)
-            if trial > numberoftrials:
-                block = 3
-                trial = 1
-            else:
-                saveVars(block, trial, timestamp, lefteye, righteye, starttime, endtime)
-                timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
-                trial += 1
-    ## diagonal
-    if block == 3:
-        t0 = time.time()
-        showFixation('o', 25, '0.5')
-        if press.event() == 'enter' or time.time() - t0 > 15:
-            showFixation('+', 25, 'b')
-            starttime.append(n.time)
-            for t in xrange(150):
-                if t == 0:
-                    showFixation('o', 5, 'r')
-                else:
-                    t /= 10.
-                    t_arr = np.linspace(t - 2 * spf, t, num=2)
-                    new_x = np.cos(targetFrequency*np.asarray(t_arr))
-                    new_y = np.sin(targetFrequency*np.asarray(t_arr))
-                    points.set_data(new_x, new_y)
-                plt.pause(spf)
-            endtime.append(n.time)
-            if trial > numberoftrials:
-                block = 4
-                trial = 1
-            else:
-                saveVars(block, trial, timestamp, lefteye, righteye, starttime, endtime)
-                timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
-                trial += 1
-    ## elliptical
-    if block == 4:
-            t0 = time.time()
-            showFixation('o', 25, '0.5')
-            if press.event() == 'enter' or time.time() - t0 > 15:
-                showFixation('+', 25, 'b')
-                starttime.append(n.time)
-                for t in xrange(150):
-                    if t == 0:
-                        showFixation('o', 5, 'r')
-                    else:
-                        t /= 10.
-                        t_arr = np.linspace(t - 2 * spf, t, num=2)  # Makes a trail
-                        new_x = 7*np.cos(targetFrequency*np.asarray(t_arr))
-                        new_y = 14*np.sin(targetFrequency*np.asarray(t_arr))
-                        points.set_data(new_x, new_y)
-                    plt.pause(spf)
-                endtime.append(n.time)
-                if trial > numberoftrials:
-                    on = 0
-                    print('All blocks have been presented. Experiment complete.')
-                else:
-                    saveVars(block, trial, timestamp, lefteye, righteye, starttime, endtime)
-                    trial += 1
+    runSimulation(block, trial)
+    if trial > numberoftrials:  # if over number of trials
+        block += 1  # move on to next block of stimuli
+        trial = 1  # reset trial
+    else:
+        saveVars(block, trial, timestamp, lefteye, righteye, starttime, endtime)
+        timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
+        trial += 1  # repeat another trial
+    if block == 5:
+        print('All blocks have been presented. Experiment complete.')
+        on = 0
 
 tracker.pullmode()
 tracker.close() # close connection with server

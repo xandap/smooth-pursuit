@@ -1,14 +1,15 @@
 import threading
 from pynput.keyboard import Key, Listener
-
+from smoothPursuit import
 
 def main():
     print('hello')
 
 def on_press(key):
+    if (key == Key.alt):
+        incrementBlock();
     print('{0} pressed'.format(
         key))
-    return True
 
 def on_release(key):
     print('{0} release'.format(
