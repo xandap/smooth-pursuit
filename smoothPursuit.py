@@ -18,7 +18,7 @@ n = tracker.next()
 numberoftrials = 6
 targetFrequency = 0.4 #Hz
 
-#initialize empty arrays
+#initialize empty arrays <-- this is process i found necessary to read in the data from the eye tracker heart beat
 timestamp = [] #time in msec
 lefteye = [] #left in rawx, rawy, avgx, avgy
 righteye = [] #right eye in rawx, rawy, avgx, avgy
@@ -42,7 +42,7 @@ while on == 1:
         #wait ON break screen until keypress OR 15 seconds
         t0 = time.time() #where is best to put this?
         showFixation('o', 1, '0.5')
-        ######################################if press.event() == 'enter' or time.time()-t0 > 15: #check this too for key press
+        if press.event() == 'enter' or time.time()-t0 > 15: #check this too for key press
             # show fixation cross
             showFixation('+', 25, 'b')
             # stimulus 1
@@ -63,7 +63,7 @@ while on == 1:
                 block = 2 #move on to next block of stimuli
                 trial = 1 #reset trial
             else:
-                saveVars(timestamp, lefteye, righteye, starttime, endtime)
+                saveVars(trial, timestamp, lefteye, righteye, starttime, endtime)
                 timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
                 trial += 1  # repeat another trial
     ## vertical
@@ -88,7 +88,7 @@ while on == 1:
                 block = 3
                 trial = 1
             else:
-                saveVars(timestamp, lefteye, righteye, starttime, endtime)
+                saveVars(trial, timestamp, lefteye, righteye, starttime, endtime)
                 timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
                 trial += 1
     ## diagonal
@@ -113,7 +113,7 @@ while on == 1:
                 block = 4
                 trial = 1
             else:
-                saveVars(timestamp, lefteye, righteye, starttime, endtime)
+                saveVars(trial, timestamp, lefteye, righteye, starttime, endtime)
                 timestamp, lefteye, righteye, starttime, endtime = ([] for i in range(5))
                 trial += 1
     ## elliptical
@@ -138,7 +138,7 @@ while on == 1:
                     on = 0
                     print('All blocks have been presented. Experiment complete.')
                 else:
-                    saveVars(timestamp, lefteye, righteye, starttime, endtime)
+                    saveVars(trial, timestamp, lefteye, righteye, starttime, endtime)
                     trial += 1
 
 tracker.pullmode()

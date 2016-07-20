@@ -1,10 +1,10 @@
 # saves variables in pickle object
 
-
+import numpy as np
 import pickle
 
 
-def saveVars(timestamp, lefteye, righteye, starttime, endtime):
+def saveVars(trial, timestamp, lefteye, righteye, starttime, endtime):
     timestamp = np.array(timestamp)  # make numpy array
     lefteye = np.array(lefteye)
     righteye = np.array(righteye)

@@ -1,11 +1,9 @@
-## use to show break or fixation page based on marker symbol
-## break page: markerColor = bgColor = 0.5
-## fixation page: '+', 25, 'r'
-
 import matplotlib.pyplot as plt
 
 
 def showFixation(markerSymbol, markerSize, markerColor):
+    ## load break.jpg (will make this jpg)
+    ## after 15 seconds elapsed or key press continue to fixation.jpg
     fig, ax = plt.subplots()
     global points
     points, = ax.plot(0, 0, marker=markerSymbol, markersize=markerSize, linestyle='None',
