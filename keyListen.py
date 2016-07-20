@@ -6,8 +6,10 @@ def main():
     print('hello')
 
 def on_press(key):
-    if (key == Key.alt):
-        incrementBlock();
+    if key == Key.alt:
+
+        #change some variable to advance from break to fix page
+
     print('{0} pressed'.format(
         key))
 
