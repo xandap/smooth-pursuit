@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-
 def showFixation(markerSymbol, markerSize, markerColor):
     ## load break.jpg (will make this jpg)
     ## after 15 seconds elapsed or key press continue to fixation.jpg
@@ -12,7 +11,7 @@ def showFixation(markerSymbol, markerSize, markerColor):
     ax.set_ylim(-1.1, 1.1)
     fig.set_facecolor('0.50')
     plt.axis('off')
-
+    #plt.show()
     ## full screen here
 
     # F = gcf()

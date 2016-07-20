@@ -8,6 +8,7 @@ def main():
 def on_press(key):
     print('{0} pressed'.format(
         key))
+    return True
 
 def on_release(key):
     print('{0} release'.format(
